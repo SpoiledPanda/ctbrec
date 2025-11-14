@@ -4,7 +4,8 @@ These templates help you wire up the source repository when available. Replace p
 
 ## Discover modules and launcher
 
-- Inspect JavaFX modules used (adjust `-cp` to your project):
+- Inspect JavaFX modules used (adjust -cp
+cp` to your project):
 
 ```cmd
 jdeps -q -s -multi-release 21 -cp . ui\CamrecApplication.class
