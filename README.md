@@ -78,9 +78,8 @@ mvn -q clean javafx:run
   - Apply `org.openjfx.javafxplugin` and set `mainClass` to your launcher.
   - Run:
 
-```cmd
-gradlew run
-```
+<!-- Gradle run: platform-specific examples -->
+**Windows (Command Prompt):**
 
 ## JavaFX Configuration Example
 

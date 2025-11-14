@@ -2,7 +2,7 @@
 [![badge_title](https://vsmarketplacebadges.dev/badge_title/publishername.extensionname.svg)](https://marketplace.visualstudio.com/items?itemName=publishername.extensionname)
 This folder is a compiled snapshot of a Java/JavaFX desktop app. It is useful for UI styling tweaks (JavaFX CSS) and docs, but does not include the Java source or build configuration.
 
-## Scope of contributions here
+## Scope of Contributions
 
 - Safe to change: JavaFX CSS under `ui/controls/**`, `ui/settings/**`, `ui/tabs/**`.
 - Not safe to change: compiled `.class` files; do not modify or remove them.
