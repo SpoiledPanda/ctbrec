@@ -1,5 +1,5 @@
 # Contributing
-
+[![badge_title](https://vsmarketplacebadges.dev/badge_title/publishername.extensionname.svg)](https://marketplace.visualstudio.com/items?itemName=publishername.extensionname)
 This folder is a compiled snapshot of a Java/JavaFX desktop app. It is useful for UI styling tweaks (JavaFX CSS) and docs, but does not include the Java source or build configuration.
 
 ## Scope of contributions here

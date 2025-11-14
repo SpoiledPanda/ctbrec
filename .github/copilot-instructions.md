@@ -1,107 +1,49 @@
-# Copilot Instructions for this Repo
 
-These guidelines help AI coding agents work productively in this codebase snapshot.
+
+# Copilot Instructions for ctbrec (JavaFX snapshot)
+
+These instructions help AI coding agents work productively in this codebase snapshot.
 
 ## Big Picture
-- This is a Java/JavaFX desktop app (compiled classes present). UI styling uses JavaFX CSS (`-fx-*`).
-- The UI layer is organized under `ui/`, with per-site modules under `ui/sites/<site>/` (e.g., `chaturbate`, `camsoda`). Class names indicate consistent roles: `*SiteUi`, `*ConfigUi`, `*TabProvider`, `*UpdateService`.
-- Events and I/O: runtime events like `PlayerStartedEvent` (`ui/event/PlayerStartedEvent.class`) have JSON DTOs and mappers in `ui/io/json/{dto,mapper}` (`PlayerStartedEventDto.class`, `PlayerStartedEventMapper.class`, `PlayerStartedEventMapperImpl.class`).
-- Core app classes include `CamrecApplication`, `Launcher`, `Player`, `JavaFxModel`, `JavaFxRecording`, and top-level `RecordingDownload.class`.
+- This is a compiled Java/JavaFX desktop app. Only `.class` files and JavaFX CSS are present—**no Java source or build configs**.
+- UI is under `ui/`, with per-site modules in `ui/sites/<site>/` (e.g., `chaturbate`, `camsoda`).
+- Event/data flow: runtime events (e.g., `PlayerStartedEvent.class`) → DTOs (`ui/io/json/dto/`) → mappers (`ui/io/json/mapper/`).
+- Core classes: `CamrecApplication`, `Launcher`, `Player`, `JavaFxModel`, `JavaFxRecording`, `RecordingDownload.class`.
 
-## What You Can Safely Change Here
-- JavaFX CSS under `ui/controls/**`, `ui/settings/**`, `ui/tabs/**` (e.g., `Popover.css`, `ColorSettingsPane.css`, `ThumbCell.css`). Keep existing `-fx-` tokens and selector structure.
-- Static assets or documentation if added in future under `docs/` (currently compiled classes like `DocServer.class` only).
-- Do not attempt to modify `.class` files; they are compiled artifacts.
+## Safe Edit Scope
+- **Allowed:** JavaFX CSS in `ui/controls/**`, `ui/settings/**`, `ui/tabs/**` (e.g., `Popover.css`).
+- **Allowed:** Documentation (README, this file, future docs/assets).
+- **Forbidden:** Do **not** modify, remove, or add `.class` files (compiled artifacts).
 
-## Patterns and Conventions
-- Per-site UI modules mirror a common shape:
-  - `ui/sites/<site>/<Site>SiteUi.class` and `<Site>TabProvider.class` define views/tabs.
-  - `<Site>ConfigUi.class` hosts site-specific settings panes.
-  - `<Site>UpdateService.class` handles background updates/polling.
-- Event → DTO → JSON mapping follows:
-  - Domain event: `ui/event/PlayerStartedEvent.class`
-  - DTO: `ui/io/json/dto/PlayerStartedEventDto.class`
-  - Mapper: `ui/io/json/mapper/PlayerStartedEventMapper(.class|Impl.class)`
-- UI styling: JavaFX CSS files use component-scoped classes (e.g., `.popover`, `.popover-frame`) and `-fx-background-*`, `-fx-effect`, `-fx-shape` for custom chrome.
-
-## Developer Workflows (Current Snapshot Limits)
-- Build/test configs (Maven/Gradle, unit tests) are not present in this snapshot; only compiled `.class` files are included.
-- Running or debugging Java code from this folder is likely not feasible without the original source repo and build toolchain (JavaFX modules/jars, classpath).
-- If asked to add or refactor Java, first request the source repository, JDK version, and build tool (Maven/Gradle) before proceeding.
-
-## Detected Build Info
-- Build tool files: none present (no `pom.xml`, `build.gradle*`, or wrapper scripts).
-- JDK target: classfile major `65` (from `ui/CamrecApplication.class`) → Java 21.
-- JavaFX: UI uses JavaFX; exact version not in snapshot. Likely aligns with JDK 21 (e.g., JavaFX 21.x); confirm in source repo.
-
-## Verify Locally
-- Check Java (cmd):
-
-```cmd
-java -version
-javac -version
-```
-
-- Inspect classfile major version (expected 65 → Java 21):
-- cmd:
-
-```cmd
-javap -verbose ui\CamrecApplication.class | find "major version"
-```
-
-- PowerShell:
-
-```powershell
-javap -verbose ui/CamrecApplication.class | Select-String "major version"
-```
-
-## Build/Run (When Source Available)
-- Preconditions: JDK 21 and JavaFX 21.x; confirm in source repo.
-- Discover modules with `jdeps` to pick JavaFX modules:
-
-```cmd
-jdeps -q -s -multi-release 21 -cp . ui\CamrecApplication.class
-```
-
-- Maven (example outline):
-  - Use OpenJFX 21 dependencies and configure your launcher (likely `ui.Launcher`, confirm in source).
-  - Run:
-
-```cmd
-mvn -q clean javafx:run -Dexec.args="" -Dprism.order=sw
-```
-
-- Gradle (example outline):
-  - Apply `org.openjfx.javafxplugin` and set `mainClass` to your launcher.
-  - Run:
-
-```cmd
-gradlew run --warning-mode all
-```
-
-More detailed templates (Maven/Gradle) are in `docs/BUILD_TEMPLATES.md`.
-
-## Examples You Can Follow
-- Styling tweak: update `ui/controls/Popover.css` selectors like `.popover-title` or `.popover .button` to adjust typography while preserving `-fx-` tokens.
-- Site-specific UI: inspect `ui/sites/chaturbate/*` to mirror naming/placement for other site modules (e.g., `<Site>SiteUi`, `<Site>TabProvider`).
-- Event export: keep `PlayerStartedEvent` data shape aligned with `PlayerStartedEventDto` and its mapper when documenting or integrating with external consumers.
+## Project Patterns & Conventions
+- Per-site UI modules: `<Site>SiteUi.class`, `<Site>TabProvider.class`, `<Site>ConfigUi.class`, `<Site>UpdateService.class` in `ui/sites/<site>/`.
+- Event → DTO → Mapper: e.g., `PlayerStartedEvent.class` → `PlayerStartedEventDto.class` → `PlayerStartedEventMapper.class`.
+- JavaFX CSS: Use component-scoped classes (e.g., `.popover`, `.popover-frame`), `-fx-background-*`, `-fx-effect`, `-fx-shape`.
 
 ## CSS Styling Guidance
-- Prefer small, scoped tweaks. Keep selectors intact (e.g., `.popover`, `.popover-frame`, `.popover-title`).
-- Preserve JavaFX tokens: `-fx-background-color`, `-fx-background-radius`, `-fx-effect`, `-fx-shape`, `-fx-text-fill`.
-- Example references: `ui/controls/Popover.css` uses tooth variants `.left-tooth`/`.right-tooth` via `-fx-shape`; avoid renaming these selectors.
-- Typography edits: adjust `-fx-font-size` in `.popover-title` or `.popover .button`; don’t change class names.
-- Visual depth: tune `dropshadow(gaussian, rgba(...), radius, ...)` rather than replacing effects entirely.
-- Test across themes if applicable; keep color usage tied to existing variables like `-fx-base`, `-fx-text-background-color`.
+- Keep selectors and `-fx-*` tokens intact. Adjust values (size, color, effect) but do not change selector structure.
+- Example: update `.popover-title` or `.popover .button` in `ui/controls/Popover.css` for typography tweaks.
+- Do **not** rename selectors or remove class names. Tune effects (e.g., `dropshadow`) rather than replacing them.
+- Test across themes if possible; keep color usage tied to variables like `-fx-base`.
+
+## Developer Workflows (Snapshot Limits)
+- **No build/test configs** (Maven/Gradle, unit tests) are present—cannot build or run Java from this folder alone.
+- For Java code changes, request the source repo, build tool, and JDK/JavaFX version.
+
+## Build/Run (when source is available)
+- JDK 21 and JavaFX 21.x required (classfile major 65 detected).
+- See `docs/BUILD_TEMPLATES.md` for Maven/Gradle templates.
+- Discover JavaFX modules:
+  - `jdeps -q -s -multi-release 21 -cp . ui\CamrecApplication.class`
+- Example Maven run: `mvn -q clean javafx:run`
+- Example Gradle run: `gradlew run`
 
 ## Do / Don’t for Agents
-- Do: Propose CSS/UI tweaks with precise file paths and selectors.
-- Do: Reference exact class files when discussing behaviors (e.g., `ui/sites/chaturbate/ChaturbateUpdateService.class`).
-- Don’t: Invent build commands or introduce Java sources without the build system.
-- Don’t: Remove or rename compiled `.class` files.
+- **Do:** Propose CSS/UI tweaks with precise file paths/selectors.
+- **Do:** Reference exact class files for behaviors (e.g., `ui/sites/chaturbate/ChaturbateUpdateService.class`).
+- **Don’t:** Invent build commands or introduce Java sources without the build system.
+- **Don’t:** Remove or rename compiled `.class` files.
 
-## Open Questions (Please Confirm)
-- What are the official build instructions (tooling, Java/JavaFX versions)?
-- Where is the source repository for these compiled classes?
-- Are there tests or CI workflows to reference?
-- Any additional resource folders (icons, FXML) not included in this snapshot?
+## If Unclear
+- If build/run/test instructions are needed, request the source repo, build tool, and JavaFX version.
+- If you find undocumented patterns, add them here for future agents.

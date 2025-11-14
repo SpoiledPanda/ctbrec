@@ -3,6 +3,7 @@
 This folder contains a compiled snapshot of a Java/JavaFX desktop application. It is useful for UI styling tweaks (JavaFX CSS) and documentation, but it does not include the Java source code or build configuration.
 
 ## What’s here
+
 - `ui/` – Application UI classes (compiled) and JavaFX CSS assets
   - `ui/controls/` (e.g., `Popover.css`)
   - `ui/settings/` (e.g., `ColorSettingsPane.css`)
@@ -13,18 +14,22 @@ This folder contains a compiled snapshot of a Java/JavaFX desktop application. I
 - Top-level compiled classes: `RecordingDownload.class`, `Launcher.class`, etc.
 
 ## What you can safely change
+
 - JavaFX CSS under `ui/controls/**`, `ui/settings/**`, `ui/tabs/**`.
 - Documentation files you add (this README) or future static assets.
 - Do not modify or remove `.class` files (compiled artifacts).
 
 ## What’s not included
+
 - Source code (Java files), build tool (Maven/Gradle) configs, or test suites. Running or debugging the app from this folder alone is not supported.
 
 ## Contributing / Full source
+
 - Please provide the source repository URL, build tool (Maven/Gradle), and JDK/JavaFX versions to enable full builds and code changes.
 - Once available, we can add build/run steps here.
 
 ## For AI coding agents
+
 - See `.github/copilot-instructions.md` for codebase-specific guidance and safe-edit rules.
 - For CSS tweaks, keep existing selectors/tokens and JavaFX `-fx-*` properties.
 
@@ -47,7 +52,7 @@ javap -verbose ui\CamrecApplication.class | find "major version"
 - PowerShell:
 
 ```powershell
-javap -verbose ui/CamrecApplication.class | Select-String "major version"
+javap -verbose ui\CamrecApplication.class | Select-String "major version"
 ```
 
 - JavaFX version isn’t encoded in class files; confirm from your build files (Maven/Gradle) or dependency list.
@@ -77,6 +82,19 @@ mvn -q clean javafx:run
 gradlew run
 ```
 
+## JavaFX Configuration Example
+
+For builds using JavaFX, specify the version and required modules in your build tool configuration. Example (Kotlin DSL):
+
+```kotlin
+javafx {
+    version = "21.0.4"
+    modules = listOf("javafx.controls", "javafx.graphics", "javafx.media")
+}
+```
+
+Refer to your build tool documentation for exact syntax and integration steps.
+
 ## Contributing
 
 See `CONTRIBUTING.md` for safe-edit scope, CSS workflow, and how to provide source/build details so we can add exact instructions.
@@ -84,4 +102,3 @@ See `CONTRIBUTING.md` for safe-edit scope, CSS workflow, and how to provide sour
 ## Build templates
 
 When the source repository is available, see `docs/BUILD_TEMPLATES.md` for Maven/Gradle examples targeting JDK 21 and JavaFX 21.
-

@@ -1,4 +1,4 @@
-# Build Templates (JDK 21 + JavaFX 21)
+# Build Templates (JDK 21 + JavaFX 21.0.4)
 
 These templates help you wire up the source repository when available. Replace placeholders as noted and confirm modules/launcher from your source code.
 
@@ -9,8 +9,8 @@ These templates help you wire up the source repository when available. Replace p
 ```cmd
 jdeps -q -s -multi-release 21 -cp . ui\CamrecApplication.class
 ```
-
-- Likely launcher class (from compiled snapshot): `ui.Launcher` (confirm in source).
+mvn -q clean javafx:run
+- Likely launcher class (from compiled snapshot, i.e., the `.class` files in the `ui/` directory): `ui.Launcher` (confirm in source).
 
 ---
 
