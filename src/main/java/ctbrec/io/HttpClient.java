@@ -1,7 +1,7 @@
+
 package ctbrec.io;
 
 import okhttp3.Cache;
-import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -24,7 +24,6 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class HttpClient {
     private static final Logger log = LoggerFactory.getLogger(HttpClient.class);
-    private static final ConnectionPool GLOBAL_HTTP_CONN_POOL = new ConnectionPool(10, 2, TimeUnit.MINUTES);
 
     protected ctbrec.io.CookieJarImpl cookieJar;
     protected OkHttpClient client;
