@@ -4,13 +4,12 @@ These templates help you wire up the source repository when available. Replace p
 
 ## Discover modules and launcher
 
-- Inspect JavaFX modules used (adjust -cp 
-cp` to your project):
+- Inspect JavaFX modules used (adjust `-cp` to your project):
 
 ```cmd
 jdeps -q -s -multi-release 21 -cp . ui\CamrecApplication.class
 ```
-mvn -q clean javafx:run
+
 - Likely launcher class (from compiled snapshot, i.e., the `.class` files in the `ui/` directory): `ui.Launcher` (confirm in source).
 
 ---
@@ -19,6 +18,7 @@ mvn -q clean javafx:run
 
 > Requires JDK 21
 
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
