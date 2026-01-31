@@ -4,7 +4,7 @@ This folder contains a compiled snapshot of a Java/JavaFX desktop application. I
 
 ## What’s here
 
-- `ui/` – Application UI classes (compiled) and JavaFX CSS assets
+- `ui/` – Application UI classes (compil JavaFX CSS assets
   - `ui/controls/` (e.g., `Popover.css`)
   - `ui/settings/` (e.g., `ColorSettingsPane.css`)
   - `ui/tabs/` (e.g., `ThumbCell.css`)
