@@ -1,49 +1,57 @@
 
+# Copilot Instructions for ctbrec
 
-# Copilot Instructions for ctbrec (JavaFX snapshot)
-
-These instructions help AI coding agents work productively in this codebase snapshot.
+These instructions help AI coding agents work productively in this documentation repository.
 
 ## Big Picture
-- This is a compiled Java/JavaFX desktop app. Only `.class` files and JavaFX CSS are present—**no Java source or build configs**.
-- UI is under `ui/`, with per-site modules in `ui/sites/<site>/` (e.g., `chaturbate`, `camsoda`).
-- Event/data flow: runtime events (e.g., `PlayerStartedEvent.class`) → DTOs (`ui/io/json/dto/`) → mappers (`ui/io/json/mapper/`).
-- Core classes: `CamrecApplication`, `Launcher`, `Player`, `JavaFxModel`, `JavaFxRecording`, `RecordingDownload.class`.
+- This is a **documentation and build template repository** for a Java/JavaFX desktop application (ctbrec version 25.11.2).
+- The repository contains build configuration templates, contribution guidelines, and setup documentation.
+- **No source code, compiled classes, or application assets** are present in this repository.
+- The `.gitignore` excludes `.snapshots/` and `*.class` files, indicating they are not part of version control.
+
+## Repository Structure
+- `README.md` – Main documentation describing the project and how to use build templates
+- `CONTRIBUTING.md` – Contribution guidelines and CSS workflow guidance
+- `docs/BUILD_TEMPLATES.md` – Maven and Gradle build configuration templates for JDK 21 + JavaFX 21.0.4
+- `docs/test_BUILD_TEMPLATES.md` – Test configuration templates
+- `build.gradle.kts` – Empty placeholder for Gradle builds
+- `.github/copilot-instructions.md` – This file
 
 ## Safe Edit Scope
-- **Allowed:** JavaFX CSS in `ui/controls/**`, `ui/settings/**`, `ui/tabs/**` (e.g., `Popover.css`).
-- **Allowed:** Documentation (README, this file, future docs/assets).
-- **Forbidden:** Do **not** modify, remove, or add `.class` files (compiled artifacts).
+- **Allowed:** All documentation files (README.md, CONTRIBUTING.md, this file)
+- **Allowed:** Build templates in `docs/` directory
+- **Allowed:** Build configuration files (build.gradle.kts, future pom.xml if added)
+- **Not applicable:** No compiled artifacts, CSS files, or source code present to modify
 
-## Project Patterns & Conventions
-- Per-site UI modules: `<Site>SiteUi.class`, `<Site>TabProvider.class`, `<Site>ConfigUi.class`, `<Site>UpdateService.class` in `ui/sites/<site>/`.
-- Event → DTO → Mapper: e.g., `PlayerStartedEvent.class` → `PlayerStartedEventDto.class` → `PlayerStartedEventMapper.class`.
-- JavaFX CSS: Use component-scoped classes (e.g., `.popover`, `.popover-frame`), `-fx-background-*`, `-fx-effect`, `-fx-shape`.
+## Documentation Guidelines
+- Keep build templates accurate for JDK 21 and JavaFX 21.0.4
+- Maintain consistency between README.md, CONTRIBUTING.md, and build templates
+- Ensure Windows cmd and PowerShell examples are both provided where applicable
+- Keep Maven and Gradle examples in sync regarding versions and configuration
 
-## CSS Styling Guidance
-- Keep selectors and `-fx-*` tokens intact. Adjust values (size, color, effect) but do not change selector structure.
-- Example: update `.popover-title` or `.popover .button` in `ui/controls/Popover.css` for typography tweaks.
-- Do **not** rename selectors or remove class names. Tune effects (e.g., `dropshadow`) rather than replacing them.
-- Test across themes if possible; keep color usage tied to variables like `-fx-base`.
+## Build Template Conventions
+- Target JDK 21 (Java 21) with JavaFX 21.0.4
+- Maven: Use `javafx-maven-plugin` version 0.0.8
+- Gradle: Use `org.openjfx.javafxplugin` version 0.1.0
+- Default JavaFX modules: javafx.controls, javafx.graphics, javafx.media
+- Expected main class: `ui.Launcher` (confirm in actual source)
 
-## Developer Workflows (Snapshot Limits)
-- **No build/test configs** (Maven/Gradle, unit tests) are present—cannot build or run Java from this folder alone.
-- For Java code changes, request the source repo, build tool, and JDK/JavaFX version.
+## Developer Workflows
+- This repository provides templates and documentation only
+- Actual application source code is in a separate repository
+- Contributors should use these templates to set up builds when working with the source
+- No build/test/run commands apply to this repository itself
 
-## Build/Run (when source is available)
-- JDK 21 and JavaFX 21.x required (classfile major 65 detected).
-- See `docs/BUILD_TEMPLATES.md` for Maven/Gradle templates.
-- Discover JavaFX modules:
-  - `jdeps -q -s -multi-release 21 -cp . ui\CamrecApplication.class`
-- Example Maven run: `mvn -q clean javafx:run`
-- Example Gradle run: `gradlew run`
-
-## Do / Don’t for Agents
-- **Do:** Propose CSS/UI tweaks with precise file paths/selectors.
-- **Do:** Reference exact class files for behaviors (e.g., `ui/sites/chaturbate/ChaturbateUpdateService.class`).
-- **Don’t:** Invent build commands or introduce Java sources without the build system.
-- **Don’t:** Remove or rename compiled `.class` files.
+## Do / Don't for Agents
+- **Do:** Update documentation to improve clarity and accuracy
+- **Do:** Enhance build templates with better examples or additional configurations
+- **Do:** Keep documentation synchronized across files
+- **Do:** Provide both Maven and Gradle examples when adding new configurations
+- **Don't:** Add source code, compiled classes, or application assets
+- **Don't:** Reference specific class files or UI components that don't exist in this repo
+- **Don't:** Create actual build artifacts or attempt to run builds
 
 ## If Unclear
-- If build/run/test instructions are needed, request the source repo, build tool, and JavaFX version.
-- If you find undocumented patterns, add them here for future agents.
+- This is a documentation-only repository
+- For questions about the actual application source code, refer to the main ctbrec repository
+- If you find inconsistencies in documentation, update all affected files to maintain coherence
